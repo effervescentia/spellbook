@@ -1,0 +1,16 @@
+{
+  "name": "spellbook",
+  "version": "1.0.0",
+  "description": "Collaborative developer's notebook",
+  "main": "dist/index.js",
+  "repository": "git@github.com:effervescentia/spellbook.git",
+  "author": "Ben Teichman <ben.l.teichman@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "tslint": "^5.9.1",
+    "typescript": "^2.7.2"
+  },
+  "dependencies": {
+    "@rematch/core": "^0.5.3"
+  }
+}
