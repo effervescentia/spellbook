@@ -1,3 +1,4 @@
+import { DocumentController } from '@api/document/document.controller';
 import { EnvironmentPlugin } from '@api/global/environment.plugin';
 import { cors } from '@elysiajs/cors';
 import Elysia from 'elysia';
@@ -9,4 +10,5 @@ export type App = typeof App;
 export const App = new Elysia()
   .use(cors())
   .use(EnvironmentPlugin)
-  .use(LoggerPlugin);
+  .use(LoggerPlugin)
+  .use(DocumentController);
