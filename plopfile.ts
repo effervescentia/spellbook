@@ -179,7 +179,7 @@ export default function (plop: NodePlopAPI) {
         {
           type: 'input',
           name: 'name',
-          message: 'service name',
+          message: 'dto name',
         },
       ]);
 

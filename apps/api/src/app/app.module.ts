@@ -7,7 +7,7 @@ import { LoggerPlugin } from '../global/logger.plugin';
 
 export type App = typeof App;
 
-export const App = new Elysia()
+export const App = new Elysia({ normalize: true })
   .use(cors())
   .use(EnvironmentPlugin)
   .use(LoggerPlugin)

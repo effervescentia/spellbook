@@ -24,8 +24,5 @@
     "turbo": "2.5.2",
     "typescript": "5.8.3"
   },
-  "overrides": {
-    "@sinclair/typebox": "0.32.34"
-  },
   "packageManager": "bun@1.2.12"
 }
