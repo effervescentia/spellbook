@@ -38,6 +38,10 @@ const UnorderedListBlockDTO = <Type extends TSchema>(Block: Type) =>
     blocks: t.Array(Block),
   });
 
+const DocumentBlockDTO = BlockDTO(BlockType.DOCUMENT, {
+  referenceID: t.String(),
+});
+
 export const AnyBlockDTO = t.Recursive((This) =>
   t.Union([
     CodeBlockDTO,
@@ -45,6 +49,7 @@ export const AnyBlockDTO = t.Recursive((This) =>
     BlockquoteBlockDTO,
     OrderedListBlockDTO(This),
     UnorderedListBlockDTO(This),
+    DocumentBlockDTO,
   ]),
 );
 

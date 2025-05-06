@@ -1,11 +1,17 @@
+import { id } from '@api/db/utils/column.util';
 import { relations } from 'drizzle-orm';
 import { pgTable, uuid } from 'drizzle-orm/pg-core';
 
 import { DocumentDB } from './document.db';
 
 export const DocumentReferenceDB = pgTable('document_reference', {
-  parentID: uuid('parent_id').references(() => DocumentDB.id),
-  targetID: uuid('target_id').references(() => DocumentDB.id),
+  id: id('id'),
+  parentID: uuid('parent_id')
+    .notNull()
+    .references(() => DocumentDB.id),
+  targetID: uuid('target_id')
+    .notNull()
+    .references(() => DocumentDB.id),
 });
 
 export const DocumentReferenceRelations = relations(

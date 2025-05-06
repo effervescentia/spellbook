@@ -7,7 +7,7 @@ import { DocumentReferenceDB } from './document-reference.db';
 
 export const DocumentDB = pgTable('document', {
   id: id('id'),
-  content: jsonb('content').$type<DocumentContent>(),
+  content: jsonb('content').notNull().$type<DocumentContent>(),
 });
 
 export const DocumentRelations = relations(DocumentDB, ({ many }) => ({

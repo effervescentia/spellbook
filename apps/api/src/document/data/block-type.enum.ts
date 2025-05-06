@@ -4,4 +4,5 @@ export enum BlockType {
   BLOCKQUOTE = 'blockquote',
   ORDERED_LIST = 'ordered_list',
   UNORDERED_LIST = 'unordered_list',
+  DOCUMENT = 'document',
 }
