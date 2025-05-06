@@ -57,15 +57,4 @@ export class DocumentService {
   async createRelationship(parentID: string, targetID: string) {
     await this.db.insert(DocumentRelationshipDB).values({ parentID, targetID });
   }
-
-  async deleteRelationship(parentID: string, targetID: string) {
-    await this.db
-      .delete(DocumentRelationshipDB)
-      .where(
-        and(
-          eq(DocumentRelationshipDB.parentID, parentID),
-          eq(DocumentRelationshipDB.targetID, targetID),
-        ),
-      );
-  }
 }

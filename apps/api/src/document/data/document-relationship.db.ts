@@ -15,9 +15,9 @@ export const DocumentRelationshipDB = pgTable(
       .references(() => DocumentDB.id, { onDelete: 'cascade' }),
   },
   (table) => [
-    index('parent_idx').on(table.parentID),
-    index('target_idx').on(table.targetID),
-    index('parent_target_idx').on(table.parentID, table.targetID),
+    index().on(table.parentID),
+    index().on(table.targetID),
+    index().on(table.parentID, table.targetID),
   ],
 );
 

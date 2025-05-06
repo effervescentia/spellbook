@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "bun --watch src/main.ts",
     "db:push": "drizzle-kit push",
+    "db:generate": "drizzle-kit generate",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
