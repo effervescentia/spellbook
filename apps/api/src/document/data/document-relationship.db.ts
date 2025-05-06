@@ -12,7 +12,7 @@ export const DocumentRelationshipDB = pgTable(
     targetID: uuid('target_id')
       .notNull()
       .unique()
-      .references(() => DocumentDB.id),
+      .references(() => DocumentDB.id, { onDelete: 'cascade' }),
   },
   (table) => [
     index('parent_idx').on(table.parentID),
