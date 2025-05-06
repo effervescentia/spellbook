@@ -39,7 +39,11 @@ const UnorderedListBlockDTO = <Type extends TSchema>(Block: Type) =>
   });
 
 const DocumentBlockDTO = BlockDTO(BlockType.DOCUMENT, {
-  referenceID: t.String(),
+  referenceID: t.String({ format: 'uuid' }),
+});
+
+const DocumentReferenceBlockDTO = BlockDTO(BlockType.DOCUMENT_REFERENCE, {
+  referenceID: t.String({ format: 'uuid' }),
 });
 
 export const AnyBlockDTO = t.Recursive((This) =>
@@ -50,6 +54,7 @@ export const AnyBlockDTO = t.Recursive((This) =>
     OrderedListBlockDTO(This),
     UnorderedListBlockDTO(This),
     DocumentBlockDTO,
+    DocumentReferenceBlockDTO,
   ]),
 );
 

@@ -4,6 +4,7 @@ import { jsonb, pgTable } from 'drizzle-orm/pg-core';
 
 import type { DocumentContent } from './document-content.dto';
 import { DocumentReferenceDB } from './document-reference.db';
+import { DocumentRelationshipDB } from './document-relationship.db';
 
 export const DocumentDB = pgTable('document', {
   id: id('id'),
@@ -12,4 +13,6 @@ export const DocumentDB = pgTable('document', {
 
 export const DocumentRelations = relations(DocumentDB, ({ many }) => ({
   references: many(DocumentReferenceDB, { relationName: 'parent' }),
+
+  relationships: many(DocumentRelationshipDB, { relationName: 'parent' }),
 }));

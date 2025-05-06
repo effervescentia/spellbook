@@ -5,4 +5,5 @@ export enum BlockType {
   ORDERED_LIST = 'ordered_list',
   UNORDERED_LIST = 'unordered_list',
   DOCUMENT = 'document',
+  DOCUMENT_REFERENCE = 'document_reference',
 }
