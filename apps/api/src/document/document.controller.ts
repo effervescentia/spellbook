@@ -29,38 +29,57 @@ export const DocumentController = new Elysia({ prefix: '/document' })
 
   .put(
     '/:documentID/content',
-    async ({ params, body, service }) => {
+    async ({ params, body, status, service }) => {
       await service.setContent(params.documentID, body.content);
+
+      return status(204, undefined);
     },
     {
       params: t.Object({ documentID: t.String({ format: 'uuid' }) }),
       body: t.Object({ content: DocumentContentDTO }),
+      response: { 204: t.Void() },
+    },
+  )
+
+  .put(
+    '/:documentID/parent/:parentID',
+    async ({ params, status, service }) => {
+      await service.upsertRelationship(params.documentID, params.parentID);
+
+      return status(204, undefined);
+    },
+    {
+      params: t.Object({
+        documentID: t.String({ format: 'uuid' }),
+        parentID: t.String({ format: 'uuid' }),
+      }),
+      response: { 204: t.Void() },
     },
   )
 
   .post(
     '/',
-    async ({ body, service }) => {
+    async ({ body, status, service }) => {
       const document = await service.create(body.content);
 
       if (body.parentID) {
         await service.createRelationship(body.parentID, document.id);
       }
 
-      return document;
+      return status(201, document);
     },
     {
       body: t.Object({
         content: DocumentContentDTO,
         parentID: t.Optional(t.String({ format: 'uuid' })),
       }),
-      response: { 200: DocumentDTO },
+      response: { 201: DocumentDTO },
     },
   )
 
   .post(
     '/:parentID/reference/:targetID',
-    async ({ params, service, status }) => {
+    async ({ params, status, service }) => {
       const reference = await service.acquireReference(
         params.parentID,
         params.targetID,
@@ -79,7 +98,7 @@ export const DocumentController = new Elysia({ prefix: '/document' })
 
   .delete(
     '/:parentID/reference/:targetID',
-    async ({ params, service, status }) => {
+    async ({ params, status, service }) => {
       await service
         .deleteReference(params.parentID, params.targetID)
         .catch(() => null);

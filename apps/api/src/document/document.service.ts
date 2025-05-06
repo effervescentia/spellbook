@@ -57,4 +57,14 @@ export class DocumentService {
   async createRelationship(parentID: string, targetID: string) {
     await this.db.insert(DocumentRelationshipDB).values({ parentID, targetID });
   }
+
+  async upsertRelationship(parentID: string, targetID: string) {
+    await this.db
+      .insert(DocumentRelationshipDB)
+      .values({ parentID, targetID })
+      .onConflictDoUpdate({
+        target: DocumentRelationshipDB.targetID,
+        set: { parentID },
+      });
+  }
 }
