@@ -1,0 +1,14 @@
+{
+  "extends": "@tsconfig/bun",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@web/*": [
+        "./src/*"
+      ],
+      "@api/*": [
+        "../api/src/*"
+      ]
+    }
+  }
+}

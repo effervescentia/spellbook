@@ -1,0 +1,6 @@
+import { id } from '@api/db/utils/column.util';
+import { pgTable } from 'drizzle-orm/pg-core';
+
+export const {{pascalCase name}}DB = pgTable('{{kebabCase name}}', {
+  id: id('id'),
+});

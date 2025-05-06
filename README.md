@@ -1,2 +1,3 @@
 # spellbook
-Collaborative delevoper's notebook
+
+Collaborative developer's notebook
