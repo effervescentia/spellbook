@@ -4,7 +4,7 @@ import fg from 'fast-glob';
 import { NodePlopAPI } from 'plop';
 
 export default function (plop: NodePlopAPI) {
-  plop.setGenerator('resource', {
+  plop.setGenerator('api:resource', {
     description: 'api resource boilerplate',
     prompts: [
       {
@@ -60,7 +60,7 @@ export default function (plop: NodePlopAPI) {
     ],
   });
 
-  plop.setGenerator('service', {
+  plop.setGenerator('api:service', {
     description: 'service boilerplate',
     prompts: async (inquirer) => {
       const { name } = await inquirer.prompt<{ name: string }>([
@@ -110,7 +110,7 @@ export default function (plop: NodePlopAPI) {
     ],
   });
 
-  plop.setGenerator('endpoint', {
+  plop.setGenerator('api:endpoint', {
     description: 'api endpoint boilerplate',
     prompts: async (inquirer) => {
       const controllers = await fg.glob('**/*.controller.ts', {
@@ -167,7 +167,7 @@ export default function (plop: NodePlopAPI) {
     ],
   });
 
-  plop.setGenerator('dto', {
+  plop.setGenerator('api:dto', {
     description: 'dto boilerplate',
     prompts: async (inquirer) => {
       const modules = await fg.glob('*', {
@@ -228,7 +228,55 @@ export default function (plop: NodePlopAPI) {
       ].flat(),
   });
 
-  plop.setGenerator('page', {
+  plop.setGenerator('db:table', {
+    description: 'database table boilerplate',
+    prompts: async (inquirer) => {
+      const modules = await fg.glob('*', {
+        onlyDirectories: true,
+        cwd: 'apps/api/src',
+      });
+
+      const { name } = await inquirer.prompt<{ name: string }>([
+        {
+          type: 'input',
+          name: 'name',
+          message: 'table name',
+        },
+      ]);
+
+      if (!modules.includes(name)) {
+        modules.push(name);
+      }
+
+      const data = await inquirer.prompt<{ module: string }>([
+        {
+          type: 'list',
+          name: 'module',
+          message: 'module name',
+          default: name,
+          choices: modules,
+        },
+      ]);
+
+      return { ...data, name };
+    },
+    actions: [
+      {
+        type: 'add',
+        path: 'apps/api/src/{{module}}/data/{{kebabCase name}}.db.ts',
+        templateFile: '.plop/table/table.hbs',
+      },
+      {
+        type: 'modify',
+        path: 'apps/api/src/db/db.schema.ts',
+        pattern: /^(export {};\n)?/,
+        template:
+          "export * from '@api/{{module}}/data/{{kebabCase name}}.db';\n",
+      },
+    ],
+  });
+
+  plop.setGenerator('web:page', {
     description: 'web page boilerplate',
     prompts: async (inquirer) => {
       const { name } = await inquirer.prompt<{ name: string }>([
@@ -366,7 +414,7 @@ export default function (plop: NodePlopAPI) {
     ],
   });
 
-  plop.setGenerator('modal', {
+  plop.setGenerator('web:modal', {
     description: 'web modal boilerplate',
     prompts: [
       {
