@@ -4,6 +4,7 @@ import importSort from 'eslint-plugin-simple-import-sort';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
+  { ignores: ['**/build/**'] },
   eslint.configs.recommended,
   tseslint.configs.recommended,
   {
