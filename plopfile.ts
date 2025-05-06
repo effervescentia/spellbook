@@ -38,6 +38,14 @@ export default function (plop: NodePlopAPI) {
       },
       {
         type: 'modify',
+        path: 'apps/api/src/app/app.interface.ts',
+        pattern: /^(export {};\n)?/,
+        template:
+          // eslint-disable-next-line no-useless-escape
+          "export type \{ {{pascalCase name}} } from '@api/{{kebabCase name}}/data/{{kebabCase name}}.dto';\n",
+      },
+      {
+        type: 'modify',
         path: 'apps/api/src/app/app.module.ts',
         pattern: /^/,
         template:
