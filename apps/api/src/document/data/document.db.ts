@@ -1,5 +1,5 @@
 import { id } from '@api/db/utils/column.util';
-import { relations } from 'drizzle-orm';
+import { relations } from '@api/db/utils/relations.util';
 import { jsonb, pgTable } from 'drizzle-orm/pg-core';
 
 import type { DocumentContent } from './document-content.dto';
@@ -11,8 +11,14 @@ export const DocumentDB = pgTable('document', {
   content: jsonb('content').notNull().$type<DocumentContent>(),
 });
 
-export const DocumentRelations = relations(DocumentDB, ({ many }) => ({
+export const DocumentRelations = relations(DocumentDB, ({ one, many }) => ({
+  parent: one(DocumentRelationshipDB, {
+    fields: [DocumentDB.id],
+    references: [DocumentRelationshipDB.targetID],
+    optional: true,
+  }),
+
   references: many(DocumentReferenceDB, { relationName: 'parent' }),
 
-  relationships: many(DocumentRelationshipDB, { relationName: 'parent' }),
+  children: many(DocumentRelationshipDB, { relationName: 'parent' }),
 }));

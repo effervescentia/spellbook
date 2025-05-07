@@ -19,7 +19,11 @@ export const DocumentController = new Elysia({ prefix: '/document' })
       const document = await service.getWithSubresources(params.documentID);
       if (!document) throw new DocumentNotFoundError(params.documentID);
 
-      return document;
+      return {
+        ...document,
+        parentID: document.parent?.parentID ?? null,
+        childIDs: document.children.map((child) => child.targetID),
+      };
     },
     {
       params: t.Object({ documentID: t.String({ format: 'uuid' }) }),

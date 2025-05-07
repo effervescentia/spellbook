@@ -2,7 +2,6 @@ import { type Static, t } from 'elysia';
 
 import { DocumentContentDTO } from './document-content.dto';
 import { DocumentReferenceDTO } from './document-reference.dto';
-import { DocumentRelationshipDTO } from './document-relationship.dto';
 
 export type Document = Static<typeof DocumentDTO>;
 
@@ -18,7 +17,8 @@ export type DocumentWithSubresources = Static<
 export const DocumentWithSubresourcesDTO = t.Composite([
   DocumentDTO,
   t.Object({
+    parentID: t.Nullable(t.String({ format: 'uuid' })),
+    childIDs: t.Array(t.String({ format: 'uuid' })),
     references: t.Array(DocumentReferenceDTO),
-    relationships: t.Array(DocumentRelationshipDTO),
   }),
 ]);

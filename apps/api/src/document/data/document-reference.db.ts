@@ -29,11 +29,13 @@ export const DocumentReferenceRelations = relations(
     parent: one(DocumentDB, {
       fields: [DocumentReferenceDB.parentID],
       references: [DocumentDB.id],
+      relationName: 'parent',
     }),
 
     target: one(DocumentDB, {
       fields: [DocumentReferenceDB.targetID],
       references: [DocumentDB.id],
+      relationName: 'target',
     }),
   }),
 );

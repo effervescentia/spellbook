@@ -27,7 +27,11 @@ export class DocumentService {
   getWithSubresources(documentID: string) {
     return this.db.query.DocumentDB.findFirst({
       where: eq(DocumentDB.id, documentID),
-      with: { references: true, relationships: true },
+      with: {
+        parent: true,
+        references: true,
+        children: true,
+      },
     });
   }
 
